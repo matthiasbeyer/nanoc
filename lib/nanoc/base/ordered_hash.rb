@@ -198,11 +198,12 @@ class OrderedHash < ::Hash
     else
       unless defined? @__yaml_inline_meth
         @__yaml_inline_meth =
-          lambda {|opts|
-            YAML::quick_emit(object_id, opts) {|emitter|
+          lambda do |opts|
+            YAML::quick_emit(object_id, opts) do |emitter|
               emitter << '{ ' << map{|kv| kv.join ': '}.join(', ') << ' }'
-            }
-          }
+            end
+          end
+
         class << self
           def to_yaml opts = {}
             begin
@@ -213,6 +214,7 @@ class OrderedHash < ::Hash
             end
           end
         end
+
       end
     end
     @__yaml_inline = bool
