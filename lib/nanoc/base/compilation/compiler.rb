@@ -351,6 +351,7 @@ module Nanoc
         raise Nanoc::Errors::RecursiveCompilation.new(content_dependency_graph.vertices)
       end
     ensure
+      Nanoc::NotificationCenter.post(:all_reps_compiled)
       Nanoc::NotificationCenter.remove(:processing_started, self)
       Nanoc::NotificationCenter.remove(:processing_ended,   self)
     end

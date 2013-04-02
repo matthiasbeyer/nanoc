@@ -228,12 +228,9 @@ module Nanoc::CLI::Commands
           end
           @gc_count += 1
         end
-      end
-
-      # @see Listener#stop
-      def stop
-        super
-        GC.enable
+        Nanoc::NotificationCenter.on(:all_reps_compiled) do
+          GC.enable
+        end
       end
 
     end
