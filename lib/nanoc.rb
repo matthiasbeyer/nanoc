@@ -2,6 +2,9 @@
 
 module Nanoc
 
+  # The current nanoc version.
+  VERSION = '4.0.0a2'
+
   # @return [String] A string containing information about this nanoc version
   #   and its environment (Ruby engine and version, Rubygems version if any).
   def self.version_information

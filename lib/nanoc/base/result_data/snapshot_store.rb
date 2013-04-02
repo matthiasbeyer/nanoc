@@ -75,7 +75,9 @@ module Nanoc
       def initialize
         require 'sqlite3'
 
-        @db = ::SQLite3::Database.new ':memory:'
+        #@db = ::SQLite3::Database.new ':memory:'
+        @db = ::SQLite3::Database.new 'tmp/snapshots.db'
+
 
         @db.execute 'CREATE TABLE snapshots (item_identifier TEXT, rep_name TEXT, snapshot_name TEXT, content TEXT)'
         @db.execute 'CREATE UNIQUE INDEX snapshots_index ON snapshots (item_identifier, rep_name, snapshot_name)'
