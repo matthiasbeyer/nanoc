@@ -301,7 +301,7 @@ module Nanoc
 
     # @return [Array<Nanoc::ItemRep>] The site’s item representations
     def reps
-      items.map { |i| i.reps }.flatten
+      items.map(&:reps).flatten
     end
     memoize :reps
 
