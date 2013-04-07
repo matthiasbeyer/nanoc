@@ -13,6 +13,7 @@ class Nanoc::Helpers::LinkToTest < Nanoc::TestCase
   end
 
   def teardown
+    super
     @item     = nil
     @item_rep = nil
   end
@@ -165,7 +166,7 @@ class Nanoc::Helpers::LinkToTest < Nanoc::TestCase
 
   def test_examples_link_to
     # Parse
-    YARD.parse('../lib/nanoc/helpers/link_to.rb')
+    YARD.parse(File.dirname(__FILE__) + '/../../lib/nanoc/helpers/link_to.rb')
 
     # Mock
     @items = [ mock, mock, mock ]
@@ -185,7 +186,7 @@ class Nanoc::Helpers::LinkToTest < Nanoc::TestCase
 
   def test_examples_link_to_unless_current
     # Parse
-    YARD.parse('../lib/nanoc/helpers/link_to.rb')
+    YARD.parse(File.dirname(__FILE__) + '/../../lib/nanoc/helpers/link_to.rb')
 
     # Mock
     @item_rep = mock
@@ -199,11 +200,10 @@ class Nanoc::Helpers::LinkToTest < Nanoc::TestCase
 
   def test_examples_relative_path_to
     # Parse
-    YARD.parse('../lib/nanoc/helpers/link_to.rb')
+    YARD.parse(File.dirname(__FILE__) + '/../../lib/nanoc/helpers/link_to.rb')
 
     # Mock
-    @item_rep = mock
-    @item_rep.stubs(:path).returns('/foo/bar/')
+    @item_rep = self.new_item_rep_with_path('/foo/bar/')
 
     # Run
     assert_examples_correct 'Nanoc::Helpers::LinkTo#relative_path_to'
