@@ -1,15 +1,36 @@
 # nanoc news
 
+## 4.0.0
+
+Removed:
+
+* Support for Ruby 1.8.x
+* All code that was deprecated in nanoc 3.x
+* Bundler support
+* `filesystem_verbose`
+* VCS interface
+* `create-item` and `create-layout` commands (create the files manually)
+* `watch` and `autocompile` commands (use `guard-nanoc`)
+* `update` command
+* All rake tasks
+
+Changed:
+
+* Let nanoc determine encoding only from the configuration file and ignore
+  the environment settings (default to utf-8)
+* Renamed `filesystem_unified` to `filesystem`
+
 ## 3.6.3 (???)
 
 Fixes:
 
-* Added support for growlnotify on Windows
-* Fixed bug which caused the external links checker to ignore the query string
-* Removed weird treatment of `DOCTYPE`s in the relativize_paths filter
+* Added support for growlnotify on Windows (#253, #267)
+* Fixed bug which caused the external links checker to ignore the query string (#279, #297)
+* Removed weird treatment of `DOCTYPE`s in the relativize_paths filter (#296)
 * Fixed CodeRay syntax coloring on Ruby 2.0
-* Silenced "Could not find files for the given pattern(s)" message on Windows
-* Fixed issue which could cause `output.diff` not to be generated correctly
+* Silenced "Could not find files for the given pattern(s)" message on Windows (#298)
+* Fixed issue which could cause `output.diff` not to be generated correctly (#255, #301)
+* Let filesystem and static data sources follow symlinks (#299, #302)
 
 ## 3.6.2 (2013-03-23)
 
