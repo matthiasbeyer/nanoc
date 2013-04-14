@@ -2,6 +2,8 @@
 
 module Nanoc::Helpers
 
+  include Nanoc::Helpers::HelperUtils
+
   # Provides functionality for building blogs, such as finding articles and
   # constructing feeds.
   #
@@ -56,6 +58,7 @@ module Nanoc::Helpers
     class AtomFeedBuilder
 
       include Nanoc::Helpers::Blogging
+      include Nanoc::Helpers::HelperUtils
 
       attr_accessor :site
 
@@ -301,6 +304,22 @@ module Nanoc::Helpers
     #
     # @return [String] The generated feed content
     def atom_feed(params={})
+      awaits(Hash, params,
+              {
+                :method => __method__,
+                  :format => {
+                    :limit => Integer,
+                    :content_proc => Proc,
+                    :excerpt_proc => Proc,
+                    :title => String,
+                    :author_name => String,
+                    :author_uri => String,
+                    :icon => String,
+                    :logo => String,
+                  }, 
+                :raise => true, 
+              })
+
       require 'builder'
 
       # Create builder
@@ -329,6 +348,8 @@ module Nanoc::Helpers
     #
     # @return [String] The URL of the given item
     def url_for(item)
+      awaits(Nanoc::Item, item, {:method => __method__, :raise => true})
+
       # Check attributes
       if @site.config[:base_url].nil?
         raise Nanoc::Errors::GenericTrivial.new('Cannot build Atom feed: site configuration has no base_url')
@@ -382,6 +403,8 @@ module Nanoc::Helpers
     #
     # @return [Time] The Time instance corresponding to the given input
     def attribute_to_time(time)
+      awaits([String, Time, Date], time, {:method => __method__, :raise => true})
+
       time = Time.local(time.year, time.month, time.day) if time.is_a?(Date)
       time = Time.parse(time) if time.is_a?(String)
       time
