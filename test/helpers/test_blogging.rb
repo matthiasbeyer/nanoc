@@ -2,6 +2,7 @@
 
 class Nanoc::Helpers::BloggingTest < Nanoc::TestCase
 
+  include Nanoc::Helpers::HelperUtils
   include Nanoc::Helpers::Blogging
   include Nanoc::Helpers::Text
 
